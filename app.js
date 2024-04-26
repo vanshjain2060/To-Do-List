@@ -3,16 +3,16 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
+app.set('view engine', 'ejs');
 
 app.get("/" , function(req, res) {
     var today = new Date();
     var currday = today.getDay();
+    var daysarr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    
+    var day = daysarr[currday];
 
-    if(currday === 0 || currday === 1) {
-        res.write("<h1>Today is Weekend</h1>");
-    }else {
-        res.sendFile(__dirname+"/index.html")
-    }
+    res.render("list", {kindofDay : day});
     
 });
 
